@@ -26,7 +26,7 @@ fig2 = px.bar(df2, x='Author', y='Reviews', title="Number of Reviews of 5 Most R
 
 #5 most reviewed books
 def truncateName(name):
-    """this truncates a given string. used for """
+    """this truncates a given string. used for the name of books"""
     if len(name)>30:
         name = name[:30]
         name = name+". . ."
