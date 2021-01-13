@@ -25,11 +25,20 @@ df2 = df2.head(5)
 fig2 = px.bar(df2, x='Author', y='Reviews', title="Number of Reviews of 5 Most Reviewed Authors")
 
 #5 most reviewed books
+def truncateName(name):
+    """this truncates a given string. used for """
+    if len(name)>30:
+        name = name[:30]
+        name = name+". . ."
+    return name
 df4 = bestsellers.groupby(["Name"]).sum(["Reviews"]).reset_index()
 df4 = df4.sort_values(by=['Reviews'], ascending=False)
 df4 = df4.head(5)
 df4 = df4[["Name", "Reviews"]]
-fig4 = px.bar(df4, x="Name", y="Reviews", title="Number of Reviews of 5 Most Reviewed Books")
+#had to come up with shorter name because the Unbroken title was too long to fit on the dash
+df4["short_name"] = df4["Name"].transform(truncateName)
+
+fig4 = px.bar(df4, x="short_name", y="Reviews", title="Number of Reviews of 5 Most Reviewed Books")
 
 sorted_data = bestsellers.sort_values(['Year']).reset_index(drop=True)
 fiction_books = sorted_data[sorted_data["Genre"]== "Fiction"].reset_index(drop=True)
@@ -53,7 +62,7 @@ app.layout = html.Div([
     dcc.Graph(figure=fig1),
 
     dcc.Graph(figure=fig3),
-	
+
     dcc.Graph(figure=fig2),
     dcc.Graph(figure=fig4)
 
