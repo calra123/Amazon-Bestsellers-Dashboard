@@ -36,9 +36,8 @@ df4 = df4.sort_values(by=['Reviews'], ascending=False)
 df4 = df4.head(5)
 df4 = df4[["Name", "Reviews"]]
 #had to come up with shorter name because the Unbroken title was too long to fit on the dash
-df4["short_name"] = df4["Name"].transform(truncateName)
-
-fig4 = px.bar(df4, x="short_name", y="Reviews", title="Number of Reviews of 5 Most Reviewed Books")
+df4["Shortened Name"] = df4["Name"].transform(truncateName)
+fig4 = px.bar(df4, x="Shortened Name", y="Reviews", title="Number of Reviews of 5 Most Reviewed Books")
 
 sorted_data = bestsellers.sort_values(['Year']).reset_index(drop=True)
 fiction_books = sorted_data[sorted_data["Genre"]== "Fiction"].reset_index(drop=True)
